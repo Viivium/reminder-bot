@@ -1,0 +1,51 @@
+{
+    "1435582272668569761": {
+        "channel_id": 1369701083181744159,
+        "reaction_received": false
+    },
+    "1435637995813343296": {
+        "channel_id": 1369701083181744159,
+        "reaction_received": true
+    },
+    "1435646109036056626": {
+        "channel_id": 1369701083181744159,
+        "user_id": 315608706320433153,
+        "reaction_received": true
+    },
+    "1435649357348077689": {
+        "channel_id": 1369701083181744159,
+        "user_id": 315608706320433153,
+        "reaction_received": true,
+        "timestamp": 1762355879.914812
+    },
+    "1435649572201435278": {
+        "channel_id": 1369701083181744159,
+        "user_id": 187645654737223680,
+        "reaction_received": true,
+        "timestamp": 1762355931.079204
+    },
+    "1435672597965705226": {
+        "channel_id": 1369701083181744159,
+        "user_id": 187645654737223680,
+        "reaction_received": false,
+        "timestamp": 1762361420.893655
+    },
+    "1435676548844884048": {
+        "channel_id": 1369701083181744159,
+        "user_id": 1383446068930412726,
+        "reaction_received": true,
+        "timestamp": 1762362362.770505
+    },
+    "1435678795834200125": {
+        "channel_id": 1369701083181744159,
+        "user_id": 1383446068930412726,
+        "reaction_received": true,
+        "timestamp": 1762362898.576724
+    },
+    "1435679490356543629": {
+        "channel_id": 1369701083181744159,
+        "user_id": 1383446068930412726,
+        "reaction_received": false,
+        "timestamp": 1762363064.05937
+    }
+}
