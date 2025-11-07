@@ -88,7 +88,8 @@ async def check_reminders():
     # Alte Nachrichten aufräumen
     removed = False
     for msg_id, data in list(watched_messages.items()):
-        if now.timestamp() - data.get("timestamp", now.timestamp()) > 7 * 24 * 3600:
+        # frag mal chatgpt ob data.get("timestamp") hier überhaupt ein date Objekt zurückgibt, ist glaube einfach nur ein String
+        if now.timestamp() - data.get("timestamp", now.timestamp()) > 24 * 3600: # 24*3600 = 86 400 Sekunden = 24 Stunden
             watched_messages.pop(msg_id)
             removed = True
             print(f"Alte Nachricht {msg_id} gelöscht")
@@ -96,11 +97,13 @@ async def check_reminders():
         save_data()
 
     # Reminder 22:30
-    if now.hour == 22 and now.minute == 30:
-        print("Es ist 22:30! Zeit für die Erinnerung")
-        for message_id, data in watched_messages.items():
+    for message_id, data in list(watched_messages.items()):
+        if not data["reaction_received"]:
+            msg_time = datetime.datetime.fromtimestamp(data["timestamp"])
+            diff = now - msg_time
 
-            if not data["reaction_received"]:
+            # Wenn 2,5 Stunden (9000 Sekunden) vergangen sind
+            if diff.total_seconds() >= 2.5 * 3600:
                 channel = client.get_channel(data["channel_id"])
                 if channel:
                     await channel.send(f"<@{USER_ID}> hast du dich abgemeldet?")
