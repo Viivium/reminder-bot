@@ -32,9 +32,11 @@ def load_data():
 
 # w = write
 # r = read
-def save_data():
+def save_data(data=None):
+    if not data:
+        data = watched_messages
     with open("reminder_data.json", "w") as f:
-        json.dump(watched_messages, f, indent=4)
+        json.dump(data, f, indent=4)
 
 # ============ Events ===============
 
@@ -87,17 +89,18 @@ async def check_reminders():
 
     # Alte Nachrichten aufräumen
     removed = False
-    for msg_id, data in list(watched_messages.items()):
-        # frag mal chatgpt ob data.get("timestamp") hier überhaupt ein date Objekt zurückgibt, ist glaube einfach nur ein String
-        if now.timestamp() - data.get("timestamp", now.timestamp()) > 24 * 3600: # 24*3600 = 86 400 Sekunden = 24 Stunden
-            watched_messages.pop(msg_id)
+    watched_messages_copy = watched_messages.copy()
+    for msg_id, data in list(watched_messages_copy.items()):
+        if data.get("reaction_received") is True:
+            watched_messages_copy.pop(msg_id)
             removed = True
             print(f"Alte Nachricht {msg_id} gelöscht")
     if removed:
-        save_data()
+        save_data(watched_messages_copy)
+        load_data()
 
     # Reminder 22:30
-    for message_id, data in list(watched_messages.items()):
+    for message_id, data in list(watched_messages_copy.items()):
         if not data["reaction_received"]:
             msg_time = datetime.datetime.fromtimestamp(data["timestamp"])
             diff = now - msg_time
